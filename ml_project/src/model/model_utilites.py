@@ -1,9 +1,9 @@
 import logging
 from typing import NoReturn, Dict
 
+import pickle
 import numpy as np
 import pandas as pd
-import pickle
 from sklearn.base import BaseEstimator
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 

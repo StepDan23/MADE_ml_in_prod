@@ -2,7 +2,7 @@ import logging
 
 from src.config.config_classes import TrainingParams
 import src.model.models as M
-from .utils import eval_metrics, save_model
+from .model_utilites import eval_metrics, save_model
 
 logger = logging.getLogger(__name__)
 
