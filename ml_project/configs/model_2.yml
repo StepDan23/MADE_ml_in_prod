@@ -4,15 +4,16 @@ test_data_path: "data/heart.csv"
 predict_path: "models/predicts.csv"
 output_model_path: "models/model.pkl"
 metric_path: "models/metrics.json"
+feature_transformer_path: "models/transformer.pkl"
 
 split_params:
   val_size: 0.1
   random_state: 23
 
 train_params:
-  model_type: "LogisticRegression"
+  model_type: "RandomForestClassifier"
   params:
-    random_state: 23
+    random_state: 42
 
 feature_params:
   cat_features:
@@ -31,7 +32,20 @@ feature_params:
     - "thalach"
     - "oldpeak"
   transform_params:
-    - trans_name: "imputer"
+    - trans_name: "cat_features"
+      trans_class: "SimpleImputer"
+      column_names:
+        - "sex"
+        - "cp"
+        - "fbs"
+        - "restecg"
+        - "exang"
+        - "slope"
+        - "ca"
+        - "thal"
+      params:
+        strategy: "mean"
+    - trans_name: "num_features"
       trans_class: "SimpleImputer"
       column_names:
         - "age"
@@ -42,3 +56,4 @@ feature_params:
       params:
         strategy: "mean"
   target_col: "target"
+

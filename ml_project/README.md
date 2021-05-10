@@ -13,3 +13,17 @@ Download dataset from [Kaggle](https://www.kaggle.com/ronitf/heart-disease-uci) 
 ```bash
 jupyter notebook notebooks/heart_eda.ipynb
 ```
+
+## Training
+
+```bash
+python -m train --config-name ./configs/model_1.yml
+python -m train --config-name ./configs/model_2.yml
+```
+
+## Prediction
+
+```bash
+python -m predict --config-name ./configs/model_1.yml
+python -m predict --config-name ./configs/model_2.yml
+```

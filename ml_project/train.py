@@ -10,8 +10,7 @@ from hydra.utils import to_absolute_path
 from src.config import build_config_from_dict
 from src.data import read_data, split_train_val_data
 
-
-from src.features import build_transformer, make_features
+from src.features import build_transformer, make_features, save_transformer
 from src.model import get_model, eval_metrics, save_model
 
 
@@ -30,6 +29,7 @@ def train(train_config):
 
     transformer = build_transformer(train_config.feature_params.transform_params)
     transformer.fit(train_df)
+    save_transformer(transformer, to_absolute_path(train_config.feature_transformer_path))
 
     train_features = make_features(transformer, train_df)
 

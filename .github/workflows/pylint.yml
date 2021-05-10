@@ -1,4 +1,4 @@
-name: Lint
+name: pylint_my_project
 
 on: [push, pull_request]
 
@@ -23,4 +23,4 @@ jobs:
       - name: Pylint
         working-directory: ./ml_project
         run: |
-          pylint src train.py  --ignore=tests --disable=C0114,C0115,C0116 --fail-under=7.0
+          pylint src train.py predict.py  --ignore=tests --disable=C0114,C0115,C0116 --fail-under=7.0

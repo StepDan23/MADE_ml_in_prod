@@ -39,6 +39,7 @@ class Config:
     predict_path: str
     output_model_path: str
     metric_path: str
+    feature_transformer_path: str
     split_params: SplittingParams
     train_params: TrainingParams
     feature_params: FeatureParams
