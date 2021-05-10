@@ -1,3 +1,3 @@
-from .config import build_config
+from .config import read_config, build_config_from_dict
 
-__all__ = ["build_config"]
+__all__ = ["read_config", "build_config_from_dict"]

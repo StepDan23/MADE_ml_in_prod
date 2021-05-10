@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Optional
 
 
@@ -14,11 +14,20 @@ class TrainingParams:
     model_type: str = "LogisticRegression"
 
 
+@dataclass()
+class FeatureTransformer:
+    trans_name: str
+    trans_class: str
+    column_names: List[str]
+    params: dict = field(default_factory=dict)
+
+
 @dataclass
 class FeatureParams:
-    cat_features: List[str]
-    num_features: List[str]
+    cat_features: Optional[List[str]]
+    num_features: Optional[List[str]]
     features_to_drop: Optional[List[str]]
+    transform_params: Optional[List[FeatureTransformer]]
     target_col: Optional[str]
 
 

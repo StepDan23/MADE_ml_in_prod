@@ -1,6 +1,6 @@
 import yaml
 
-from src.config import build_config
+from src.config import read_config
 
 
 def test_build_config(tmp_path, config_dict):
@@ -8,7 +8,7 @@ def test_build_config(tmp_path, config_dict):
     with open(path, "w") as fd:
         yaml.dump(config_dict, fd)
 
-    config = build_config(path)
+    config = read_config(path)
 
     assert config.logger_config_path == config_dict['logger_config_path']
     assert config.input_data_path == config_dict['input_data_path']
@@ -20,9 +20,13 @@ def test_build_config(tmp_path, config_dict):
     assert config.split_params.random_state == config_dict['split_params']['random_state']
     assert config.train_params.params == config_dict['train_params']['params']
     assert config.train_params.model_type == config_dict['train_params']['model_type']
-    assert config.feature_params.cat_features == config_dict['feature_params']['cat_features']
-    assert config.feature_params.num_features == config_dict['feature_params']['num_features']
-    assert config.feature_params.features_to_drop == config_dict['feature_params']['features_to_drop']
+    assert config.feature_params.cat_features == config_dict['feature_params'].get('cat_features', None)
+    assert config.feature_params.num_features == config_dict['feature_params'].get('num_features', None)
+    assert config.feature_params.features_to_drop == config_dict['feature_params'].get('features_to_drop', None)
+    assert config.feature_params.target_col == config_dict['feature_params'].get('target_col', None)
     assert config.feature_params.target_col == config_dict['feature_params']['target_col']
 
+    transformers = config_dict['feature_params'].get('transform_params', None)
+    if transformers is not None:
+        assert len(config.feature_params.transform_params) == len(transformers)
 

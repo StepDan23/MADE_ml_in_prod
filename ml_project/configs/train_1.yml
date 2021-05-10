@@ -1,4 +1,4 @@
-logger_config_path: "configs/logging.conf.yml"
+logger_config_path: "configs/logger.yml"
 input_data_path: "data/heart.csv"
 test_data_path: "data/heart.csv"
 predict_path: "models/predicts.csv"
@@ -30,4 +30,15 @@ feature_params:
     - "chol"
     - "thalach"
     - "oldpeak"
+  transform_params:
+    - trans_name: "imputer"
+      trans_class: "SimpleImputer"
+      column_names:
+        - "age"
+        - "trestbps"
+        - "chol"
+        - "thalach"
+        - "oldpeak"
+      params:
+        strategy: "mean"
   target_col: "target"
