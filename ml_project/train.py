@@ -29,17 +29,17 @@ def train(train_config):
 
     transformer = build_transformer(train_config.feature_params.transform_params)
     transformer.fit(train_df)
-    save_transformer(transformer, to_absolute_path(train_config.feature_transformer_path))
+
+    transformer_path = Path(to_absolute_path(train_config.feature_transformer_path))
+    transformer_path.parent.mkdir(exist_ok=True, parents=True)
+    save_transformer(transformer, transformer_path)
 
     train_features = make_features(transformer, train_df)
 
     model = get_model(train_config.train_params)
     model.fit(train_features, train_target)
 
-    model_path = Path(to_absolute_path(train_config.output_model_path))
-    model_path.parent.mkdir(exist_ok=True, parents=True)
-
-    save_model(model, model_path)
+    save_model(model, to_absolute_path(train_config.output_model_path))
 
     y_true = val_df[train_config.feature_params.target_col]
     val_df = val_df.drop(train_config.feature_params.target_col, axis=1)

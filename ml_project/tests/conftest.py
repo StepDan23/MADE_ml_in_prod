@@ -13,7 +13,7 @@ def fake_dataset(faker):
     faker.set_arguments("cat", {"min_value": 0, "max_value": 4})
     faker.set_arguments("target", {"min_value": 0, "max_value": 1})
     data = faker.csv(
-        header=("num", "cat", "bin", "target"),
+        header=("num", "cat", "target"),
         data_columns=(
             "{{pyfloat:num}}",
             "{{pyint:cat}}",
@@ -35,6 +35,7 @@ def config_dict():
         predict_path: "models/predicts.csv"
         output_model_path: "models/model.pkl"
         metric_path: "models/metrics.json"
+        feature_transformer_path: "models/transformer.pkl"
         
         split_params:
           val_size: 0.1
@@ -76,6 +77,7 @@ def config_path(tmp_path, fake_dataset, config_dict):
     config_dict["predict_path"] = str(tmp_path / config_dict["predict_path"])
     config_dict["output_model_path"] = str(tmp_path / config_dict["output_model_path"])
     config_dict["metric_path"] = str(tmp_path / config_dict["metric_path"])
+    config_dict["feature_transformer_path"] = str(tmp_path / config_dict["feature_transformer_path"])
 
     config_path = tmp_path / "config.yml"
     with open(config_path, "w") as fd:
