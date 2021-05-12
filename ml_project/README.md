@@ -27,3 +27,8 @@ python -m train --config-name ./configs/model_2.yml
 python -m predict --config-name ./configs/model_1.yml
 python -m predict --config-name ./configs/model_2.yml
 ```
+
+## Local project testing
+```bash
+python -m pytest -v .
+```
