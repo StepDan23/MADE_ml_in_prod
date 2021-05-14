@@ -4,7 +4,7 @@ from typing import Tuple
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from src.config.config_classes import SplittingParams
+from ml_project.config.config_classes import SplittingParams
 
 logger = logging.getLogger(__name__)
 

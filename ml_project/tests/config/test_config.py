@@ -1,6 +1,6 @@
 import yaml
 
-from src.config import read_config
+from ml_project.config import read_config
 
 
 def test_build_config(tmp_path, config_dict):

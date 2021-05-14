@@ -6,10 +6,10 @@ import yaml
 import pandas as pd
 from hydra.utils import to_absolute_path
 
-from src.features import load_transformer, make_features
-from src.model import load_model
-from src.config import build_config_from_dict
-from src.data import read_data
+from ml_project.features import load_transformer, make_features
+from ml_project.model import load_model
+from ml_project.config import build_config_from_dict
+from ml_project.data import read_data
 
 
 def setup_logger(logger_config_path):
@@ -32,7 +32,7 @@ def predict(predict_config):
     y_pred.to_csv(to_absolute_path(predict_config.predict_path), index=False)
 
 
-@hydra.main()
+@hydra.main(config_path="..")
 def main(config_dict):
     predict_config = build_config_from_dict(config_dict)
     setup_logger(to_absolute_path(predict_config.logger_config_path))

@@ -4,8 +4,8 @@ import pytest
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import Normalizer
 
-from src.config.config_classes import FeatureTransformer
-from src.features import build_transformer, make_features
+from ml_project.config.config_classes import FeatureTransformer
+from ml_project.features import build_transformer, make_features
 
 
 @pytest.mark.parametrize(

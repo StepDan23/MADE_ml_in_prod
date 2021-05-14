@@ -6,8 +6,8 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
-from src.config.config_classes import FeatureTransformer
-import src.features.transformers as T
+from ml_project.config.config_classes import FeatureTransformer
+import ml_project.features.transformers as T
 
 logger = logging.getLogger(__name__)
 

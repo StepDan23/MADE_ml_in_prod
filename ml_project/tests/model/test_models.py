@@ -1,7 +1,7 @@
 import pytest
 
-from src.config.config_classes import TrainingParams
-from src.model import get_model
+from ml_project.config.config_classes import TrainingParams
+from ml_project.model import get_model
 
 
 @pytest.mark.parametrize(

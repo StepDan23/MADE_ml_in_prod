@@ -3,7 +3,7 @@ import logging
 import yaml
 from marshmallow_dataclass import class_schema
 
-from src.config.config_classes import Config
+from ml_project.config.config_classes import Config
 
 logger = logging.getLogger(__name__)
 

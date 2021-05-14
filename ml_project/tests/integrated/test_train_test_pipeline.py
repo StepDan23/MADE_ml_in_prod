@@ -2,11 +2,11 @@ import pandas as pd
 from sklearn.utils.validation import check_is_fitted
 from hydra.utils import to_absolute_path
 
-from train import train
-from predict import predict
-from src.config import read_config
-from src.features import load_transformer
-from src.model import load_model
+from ml_project.train import train
+from ml_project.predict import predict
+from ml_project.config import read_config
+from ml_project.features import load_transformer
+from ml_project.model import load_model
 
 
 def test_intergated(fake_dataset, config_path):

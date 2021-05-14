@@ -1,7 +1,7 @@
 import logging
 
-from src.config.config_classes import TrainingParams
-import src.model.models as M
+from ml_project.config.config_classes import TrainingParams
+import ml_project.model.models as M
 from .model_utilites import eval_metrics, save_model, load_model
 
 logger = logging.getLogger(__name__)

@@ -1,7 +1,7 @@
 import pandas as pd
 
-from src.data import read_data, split_train_val_data
-from src.config.config_classes import SplittingParams
+from ml_project.data import read_data, split_train_val_data
+from ml_project.config.config_classes import SplittingParams
 
 
 def test_read_data(tmp_path):

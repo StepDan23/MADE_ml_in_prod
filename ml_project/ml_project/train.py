@@ -7,11 +7,11 @@ import hydra
 import yaml
 from hydra.utils import to_absolute_path
 
-from src.config import build_config_from_dict
-from src.data import read_data, split_train_val_data
+from ml_project.config import build_config_from_dict
+from ml_project.data import read_data, split_train_val_data
 
-from src.features import build_transformer, make_features, save_transformer
-from src.model import get_model, eval_metrics, save_model
+from ml_project.features import build_transformer, make_features, save_transformer
+from ml_project.model import get_model, eval_metrics, save_model
 
 
 def setup_logger(logger_config_path):
@@ -52,7 +52,7 @@ def train(train_config):
         json.dump(metrics, fd)
 
 
-@hydra.main()
+@hydra.main(config_path="..")
 def main(config_dict):
     train_config = build_config_from_dict(config_dict)
     setup_logger(to_absolute_path(train_config.logger_config_path))

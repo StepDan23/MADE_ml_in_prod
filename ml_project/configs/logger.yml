@@ -23,7 +23,7 @@ handlers:
     formatter: simple
 
 loggers:
-  src:
+  ml_project:
     level: INFO
     handlers: [log_handler]
     propagate: yes

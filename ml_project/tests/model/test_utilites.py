@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 import pandas as pd
 
-from src.model import eval_metrics
+from ml_project.model import eval_metrics
 
 
 @pytest.mark.parametrize(
