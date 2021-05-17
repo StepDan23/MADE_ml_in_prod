@@ -1,0 +1,30 @@
+name: test_online_inference
+
+on:
+  push:
+    branches: [ homework2 ]
+  pull_request:
+    branches: [ homework2 ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        working-directory: ./online_inference
+        run: |
+          pip install .
+          wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1NQrmECZzrwe_00aRVLDg4v1dkL4Hku5m' -O artefacts.zip && unzip artefacts.zip
+
+      - name: Testing
+        working-directory: ./online_inference
+        run: |
+          MODEL_PATH=artefacts/model.pkl python -m pytest . -v

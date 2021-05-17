@@ -1,0 +1,29 @@
+name: pylint_checks
+
+on:
+  push:
+    branches: [ homework2 ]
+  pull_request:
+    branches: [ homework2 ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        working-directory: ./online_inference
+        run: |
+          pip install .
+
+      - name: Pylint online_inference
+        working-directory: ./online_inference
+        run: |
+          pylint online_inference --disable=C0114,C0115,C0116 --fail-under=7.0
