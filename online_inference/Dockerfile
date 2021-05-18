@@ -1,7 +1,8 @@
-FROM python:3.9
+FROM python:3.9-slim
 
 COPY online_inference   /opt/app/online_inference
-COPY artefacts/model.pkl setup.py requirements.txt  /opt/app/
+COPY artefacts/model.pkl setup.py   /opt/app/
+COPY light_requirements.txt   /opt/app/requirements.txt
 WORKDIR /opt/app
 RUN pip install .
 

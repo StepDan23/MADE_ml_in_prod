@@ -18,7 +18,7 @@ def root():
     return RedirectResponse(app.docs_url)
 
 
-@app.get('/heath')
+@app.get('/health')
 def health():
     return bool(app.MODEL)
 

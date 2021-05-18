@@ -25,10 +25,21 @@ python online_inference/request.py --config-name='configs/request.yml'
 ```
 
 ## Launch application on Docker
+##### Docker image optimisation (Compressed docker hub size 202.46 MB)
+* Default docker image size - 1.29 Gb
+* Use FROM python:3.9-slim - 522 Mb
+* Use light_requirements.txt (libs only for inference) - 494 Mb
 
+### Use local build
 ```bash
 docker build -t online .
 docker run -p 8000:8000 --rm online
+```
+
+### Use build from DockerHub
+```bash
+docker pull stepdan23/online_inference:v1
+docker run -p 8000:8000 --rm stepdan23/online_inference:v1
 ```
 
 ## Local project testing
