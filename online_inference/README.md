@@ -24,6 +24,13 @@ MODEL_PATH='artefacts/model.pkl' uvicorn online_inference.app:app
 python online_inference/request.py --config-name='configs/request.yml'
 ```
 
+## Launch application on Docker
+
+```bash
+docker build -t online .
+docker run -p 8000:8000 --rm online
+```
+
 ## Local project testing
 ```bash
 MODEL_PATH=artefacts/model.pkl pytest -v .
