@@ -1,4 +1,4 @@
-name: test_ml_project
+name: pylint_my_project
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
         run: |
           pip install .
 
-      - name: Testing
+      - name: Pylint
         working-directory: ./ml_project
         run: |
-          pytest -v .
+          pylint ml_project --disable=C0114,C0115,C0116 --fail-under=7.0
