@@ -1,19 +1,23 @@
 import os
-import pandas as pd
 
 import click
+import pickle as pkl
+import pandas as pd
 
 
 @click.command("predict")
-@click.option("--input-dir")
-@click.option("--output-dir")
-def predict(input_dir: str, output_dir):
-    data = pd.read_csv(os.path.join(input_dir, "data.csv"))
-    # do real predict instead
-    data["predict"] = 1
+@click.option("--input-data-dir")
+@click.option("--prod-model-dir")
+@click.option("--predict-data-dir")
+def predict(input_data_dir: str, prod_model_dir: str, predict_data_dir: str):
+    os.makedirs(predict_data_dir, exist_ok=True)
 
-    os.makedirs(output_dir, exist_ok=True)
-    data.to_csv(os.path.join(output_dir, "data.csv"))
+    data = pd.read_csv(os.path.join(input_data_dir, "data.csv"))
+    with open(os.path.join(prod_model_dir, "model.pkl"), 'rb') as fd:
+        model = pkl.load(fd)
+
+    y_pred = pd.DataFrame(model.predict(data), columns=['predicted'])
+    y_pred.to_csv(os.path.join(predict_data_dir, "predict.csv"))
 
 
 if __name__ == '__main__':
