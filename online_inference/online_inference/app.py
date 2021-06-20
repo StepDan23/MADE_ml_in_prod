@@ -34,15 +34,14 @@ def health():
 def prepare_model():
     model_path = os.getenv("MODEL_PATH")
     logger.info("load model from %s", model_path)
+    logger.info("waiting %s seconds for model init", _PSEUDO_WAIT_SEC)
+    time.sleep(_PSEUDO_WAIT_SEC)
 
     try:
         with open(model_path, "rb") as fd:
             app.MODEL = pickle.load(fd)
     except Exception:
         raise RuntimeError(f"Can't load model from {model_path}")
-
-    logger.info("waiting %s seconds for model init", _PSEUDO_WAIT_SEC)
-    time.sleep(_PSEUDO_WAIT_SEC)
 
 
 @app.post('/predict')

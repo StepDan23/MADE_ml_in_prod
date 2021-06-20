@@ -12,7 +12,6 @@ spec:
       ports:
         - name: app-port
           containerPort: 8000
-          hostPort: 8000
 
       resources:
         requests:
@@ -21,6 +20,13 @@ spec:
         limits:
           memory: "256Mi"
           cpu: "500m"
+
+      readinessProbe:
+        httpGet:
+          path: /health
+          port: app-port
+        initialDelaySeconds: 10
+        periodSeconds: 3
 
       livenessProbe:
         httpGet:
@@ -33,5 +39,6 @@ spec:
         httpGet:
           path: /health
           port: app-port
+        initialDelaySeconds: 10
         failureThreshold: 5
         periodSeconds: 5
