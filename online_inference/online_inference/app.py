@@ -1,5 +1,7 @@
-import os
 import logging
+import os
+import time
+from datetime import datetime
 
 import pickle
 from fastapi import FastAPI, status, Response
@@ -11,6 +13,9 @@ from online_inference.config.config_classes import QueryData, Prediction
 logger = logging.getLogger("uvicorn")
 app = FastAPI()
 app.MODEL = None
+app.START_TIME = datetime.now()
+_PSEUDO_WAIT_SEC = 20
+_PSEUDO_FAIL_SEC = 60
 
 
 @app.get('/')
@@ -20,6 +25,8 @@ def root():
 
 @app.get('/health')
 def health():
+    if (datetime.now() - app.START_TIME).seconds > _PSEUDO_FAIL_SEC:
+        raise RuntimeError("Oops pseudo fail app")
     return bool(app.MODEL)
 
 
@@ -33,6 +40,9 @@ def prepare_model():
             app.MODEL = pickle.load(fd)
     except Exception:
         raise RuntimeError(f"Can't load model from {model_path}")
+
+    logger.info("waiting %s seconds for model init", _PSEUDO_WAIT_SEC)
+    time.sleep(_PSEUDO_WAIT_SEC)
 
 
 @app.post('/predict')
