@@ -12,7 +12,7 @@ def get_requirements(path):
 setup(
     name="online_inference",
     packages=find_packages(),
-    version="0.1.0",
+    version="0.1.1",
     author="stepdan23",
     install_requires=get_requirements(REQUIREMENTS_PATH),
     license="MIT",

@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-inference-deployment
+  labels:
+    app: online-inference-deployment
+
+spec:
+  replicas: 3
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0%
+
+  selector:
+    matchLabels:
+      app: online-inference
+
+  template:
+    metadata:
+      name: online-inference
+      labels:
+        app: online-inference
+
+    spec:
+      containers:
+        - image: stepdan23/online_inference:v1
+          name: online-inference
+
+          ports:
+            - name: app-port
+              containerPort: 8000
+
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "800m"
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: app-port
+            initialDelaySeconds: 10
+            periodSeconds: 3
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: app-port
+            failureThreshold: 2
+            periodSeconds: 10
+
+          startupProbe:
+            httpGet:
+              path: /health
+              port: app-port
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            periodSeconds: 5

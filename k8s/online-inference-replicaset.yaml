@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: online-inference-replicaset
+  labels:
+    app: online-inference-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: online-inference
+  template:
+    metadata:
+      name: online-inference
+      labels:
+        app: online-inference
+
+    spec:
+      containers:
+        - image: stepdan23/online_inference:v2
+          name: online-inference
+
+          ports:
+            - name: app-port
+              containerPort: 8000
+
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: app-port
+            initialDelaySeconds: 10
+            periodSeconds: 3
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: app-port
+            failureThreshold: 2
+            periodSeconds: 10
+
+          startupProbe:
+            httpGet:
+              path: /health
+              port: app-port
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            periodSeconds: 5
